@@ -1,0 +1,84 @@
+import { Component } from '@angular/core';
+declare var require: any;
+
+class Range{
+  Start:number;
+  Length:number;
+  Style:string;
+
+  constructor(start, length, style){
+    this.Start = start;
+    this.Length=length;
+    this.Style=style;
+  }
+
+}
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+
+export class AppComponent {
+  title = 'app';
+  ranges:Range[] = [new Range(1, 6, "red-text"), new Range(2, 6,"blue-text"), 
+                    new Range(3, 6, "red-text"), new Range(4, 6, "blue-text"),
+                    new Range(5, 6, "red-text"), new Range(6, 6, "blue-text"),
+                    new Range(7, 6, "red-text"), new Range(8, 6, "blue-text"),
+                    new Range(9, 6, "red-text"), new Range(10, 6, "blue-text"),
+                    new Range(11, 6, "red-text"), new Range(12, 6, "blue-text"),
+                    new Range(13, 6, "red-text"), new Range(14, 6, "blue-text"),
+                    new Range(15, 6, "red-text"), new Range(16, 6, "blue-text"),
+                    new Range(17, 6, "red-text"), new Range(18, 6, "blue-text"),
+                    new Range(19, 6, "red-text"), new Range(20, 6, "blue-text"),
+                 
+];
+  
+
+  constructor(){
+    
+  }
+   
+  ngOnInit() {
+    var Mark = require('mark.js');
+    var instance = new Mark(document.getElementById('main-text'));
+
+    var iter = (function(r:Range[]){
+      var i=0;
+
+      var markRange = function(range: Range){
+        console.log(range);
+        console.log(instance);
+        instance.markRanges([{start: range.Start, length:range.Length}], 
+          {className:range.Style, done:function(totalMarks){
+            console.log("Done function. Total marks "+totalMarks);next();
+          }
+      });
+      };
+
+      var next = function(){
+        
+        if(i < r.length)
+        {
+          console.log("iteration counter " + i);
+          markRange(r[i++]);
+        }
+      }
+
+      return {
+        start: function(){
+          next();
+        }
+      }
+
+    })(this.ranges);
+
+    iter.start();
+
+  }
+
+  
+}
+
+
