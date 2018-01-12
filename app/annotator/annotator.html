@@ -1,0 +1,30 @@
+<div class="container ">
+  <label for="addFile" class="btn btn-primary">Open File</label>
+  <input type="file" id="addFile" (change)="openFile($event)" accept="text/xml" style="visibility: hidden"> 
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div (mouseup)="showSelectedText($event)" class="col-lg-8 annotation-content panel panel-default">
+      <!-- <div class="context" [innerHTML]="displayText" *ngIf="fullText.length > 0"> </div> -->
+      <div id="context">{{displayText}}</div>
+    </div>
+    <div class="col-lg-4">
+      <div style="height: 60%;">
+        <right-panel [selectedTexts]="selectedTexts" [currentAnnotations]="currentAnnotations" (addAnnotation)="addAnnotation()"
+        (download)="downloadXml()"></right-panel>
+      </div>
+      <div style="height: 35%;">
+        <!-- <tag-cloud [selectedTexts]="selectedTexts"></tag-cloud> -->
+        <tag-cloud [selectedTexts]="selectedTexts" [appliedTag]="previousTag"
+          [appliedAnnotations]="uniqueAvailableTags" (cloudTagApplied)="cloudTagApplied($event)"></tag-cloud>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="share-selected-text-main-container active">
+  <div class="share-selected-text-inner" [style.display]="getStyle()">
+    <button (click)="addSelectedText()" type="button" class="btn btn-default" aria-label="Left Align">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>

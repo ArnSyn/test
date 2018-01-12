@@ -1,0 +1,58 @@
+<div class="panel panel-default" *ngIf="selectedTexts.length > 0">
+    <div class="panel-heading">Add New Annotation</div>
+    <div class="panel-body">
+        <form class="form" name="formAddAnnotation" novalidate (ngSubmit)="triggerAddAnnotation()">
+            <div class="form-group">
+                <label>Selected Text</label>
+                <ul class="list-group" *ngFor="let text of selectedTexts; let i = index">
+                    <li class="list-group-item">
+                        <em>{{text.text}}</em>
+                        <span class="pull-right" (click)="removeTextSelection(i)">
+                            <i class="fa fa-remove" aria-hidden="true"></i>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label>Annotation Type</label>
+                <select class="form-control" [class.has-error]="!selectedTag" [(ngModel)]="selectedTag"
+                    required name="selectedTag" (ngModelChange)="updateSlectedTag($event)">
+                    <option></option>
+                    <option *ngFor="let tag of selectTags" [ngValue]="tag"> {{tag.type}} </option>
+                </select>
+                <p class="help-block" [hidden]="selectedTag"> Annotation Type Required </p>
+            </div>
+            <div class="form-group" *ngIf="selectedTag && selectedTag.comment">
+                <label>Comment</label>
+                <textarea [(ngModel)]="currntComment" name="currntComment" class="form-control"></textarea> </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <!--button type="button" (click)="removeAllTextSelection()" class="btn btn-default">Clear</button-->
+            </div>
+        </form>
+    </div>
+</div>
+<div class="panel panel-default" *ngIf="currentAnnotations.length > 0">
+    <div class="panel-heading">Current Annotations</div>
+    <div class="panel-body">
+        <form class="form" name="form">
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let item of currentAnnotations; let i = index" style="padding:10px 15px 0;">
+                    <p>
+                        <mark [style.background]="item.color">{{item.text}}</mark>
+                        <span class="pull-right" (click)="removeTAnnotation(i)">
+                            <i class="fa fa-remove" aria-hidden="true"></i>
+                        </span>
+                    </p>
+                    <p>
+                        <i *ngIf="item.comment.length > 0">{{item.comment}} </i>
+                        <i>#{{item.type}}</i>
+                    </p>
+                </li>
+            </ul>
+            <div class="form-group">
+                <button (click)="triggerDownload()" class="btn btn-primary">Download</button>
+            </div>
+        </form>
+    </div>
+</div>

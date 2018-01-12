@@ -1,0 +1,10 @@
+<div class="panel panel-default" style="margin-bottom: 0;"><!-- *ngIf="condition to show Tag Cloud Section" -->
+    <div class="panel-heading">Existing Tag Cloud</div>
+    <div class="panel-body">
+        <span *ngFor="let tag of selectTags">
+            <tag-button [buttonText]="tag.type" [buttonColor]="tag.color"
+                [applTag]="appliedTag" [appldAnnotate]="appliedAnnotations"
+                (tagApplied)=tagApplied($event);></tag-button>
+        </span>
+    </div>
+</div>

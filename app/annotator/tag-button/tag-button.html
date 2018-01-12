@@ -1,0 +1,23 @@
+<label class="btn btn-primary btn-custom" [style.background-color]="buttonColor"
+        [style.border-color]="buttonColor"
+        [ngClass]="{'highlight': buttonText === applTag, 'disable-cursor': appldAnnotate.indexOf(buttonText) === -1}"
+        (click)=applyTag(buttonText);>
+    {{buttonText}}
+</label>
+
+<style>
+    .btn-custom {
+        margin-bottom: 2%;
+        margin-right: 1%;
+        border-radius: 10px;
+        color: black;
+        cursor: pointer;
+    }
+    .highlight {
+        border: 1px solid gray !important; 
+        box-shadow: 1px 1px 1px 1px gray !important;
+    }
+    .disable-cursor {
+        pointer-events: none;
+    }
+</style>
